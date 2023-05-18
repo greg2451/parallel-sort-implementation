@@ -1,6 +1,8 @@
 import random
 import time
 
+from python_implementation.quick_sort_multiprocessed import quick_sort_mp
+
 
 def swap_by_index(array, index_a, index_b):
     array[index_a], array[index_b] = array[index_b], array[index_a]
@@ -17,8 +19,9 @@ def partition(to_sort, left_index, right_index):
             to_sort = swap_by_index(to_sort, index, greater_element_index)
             greater_element_index += 1
 
-    if right_index == greater_element_index:
-        print("Pivot {pivot} was already in the right spot")
+    # if right_index == greater_element_index:
+    #     print(f"Pivot {pivot} was already in the right spot")
+
     # Pivot in its definite spot
     to_sort = swap_by_index(to_sort, right_index, greater_element_index)
 
@@ -29,7 +32,7 @@ def partition(to_sort, left_index, right_index):
 def test_sort(sort_func, input_size, show_error=False):
     to_sort = [random.randint(0, input_size) for i in range(input_size)]
 
-    if sort_func == sorted:
+    if sort_func in [sorted, quick_sort_mp]:
         start_time = time.time()
         res = sort_func(to_sort)
         end_time = time.time()
