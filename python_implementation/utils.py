@@ -1,6 +1,8 @@
 import random
 import time
 
+from parallel_sort_implementation import quicksort_cpp
+
 from python_implementation.quick_sort_multiprocessed import quick_sort_mp
 
 
@@ -32,15 +34,12 @@ def partition(to_sort, left_index, right_index):
 def test_sort(sort_func, input_size, show_error=False):
     to_sort = [random.randint(0, input_size) for i in range(input_size)]
 
-    if sort_func in [sorted, quick_sort_mp]:
-        start_time = time.time()
-        res = sort_func(to_sort)
-        end_time = time.time()
-        return end_time - start_time
-
     start_time = time.time()
-    sort_func(to_sort, 0, len(to_sort) - 1)
+    if sort_func in [sorted, quick_sort_mp, quicksort_cpp]:
+        res = sort_func(to_sort)
+    else:
+        res = sort_func(to_sort, 0, len(to_sort) - 1)
     end_time = time.time()
-    if show_error:
-        print(f"Valid sort: {res == sorted(res)}.")
+    if show_error and res != sorted(res):
+        print(f"Error in {sort_func.__name__}")
     return end_time - start_time
