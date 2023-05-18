@@ -7,9 +7,10 @@ from parallel_sort_implementation.python import (
     quick_sort,
     quick_sort_mp,
     quick_sort_th,
+    smart_quick_sort,
 )
 from parallel_sort_implementation.python.utils import test_sort
-from parallel_sort_implementation.cython import quicksort_cpp
+from parallel_sort_implementation.cython import quicksort_cpp, smart_quicksort_cpp
 
 SAVE_DIR = Path(__file__).parent.parent / "results"
 SAVE_DIR.mkdir(exist_ok=True)
@@ -18,6 +19,7 @@ SAVE_DIR.mkdir(exist_ok=True)
 def plot_perf(input_sizes: list, include_multithreaded_and_multiprocessed: bool):
     gold_standard_times = []
     regular_quicksort_times = []
+    smart_quicksort_times = []
 
     multithreaded_quicksort_times = []
     multiprocess_quicksort_times = []
@@ -26,6 +28,7 @@ def plot_perf(input_sizes: list, include_multithreaded_and_multiprocessed: bool)
     for input_size in tqdm(input_sizes):
         gold_standard_time = test_sort(sorted, input_size)
         regular_quicksort_time = test_sort(quick_sort, input_size)
+        smart_quicksort_time = test_sort(smart_quick_sort, input_size)
         if include_multithreaded_and_multiprocessed:
             multithreaded_quicksort_time = test_sort(quick_sort_th, input_size)
             multiprocess_quicksort_time = test_sort(quick_sort_mp, input_size)
@@ -33,6 +36,7 @@ def plot_perf(input_sizes: list, include_multithreaded_and_multiprocessed: bool)
 
         gold_standard_times.append(gold_standard_time)
         regular_quicksort_times.append(regular_quicksort_time)
+        smart_quicksort_times.append(smart_quicksort_time)
         if include_multithreaded_and_multiprocessed:
             multithreaded_quicksort_times.append(multithreaded_quicksort_time)
             multiprocess_quicksort_times.append(multiprocess_quicksort_time)
@@ -40,6 +44,7 @@ def plot_perf(input_sizes: list, include_multithreaded_and_multiprocessed: bool)
 
     plt.plot(input_sizes, gold_standard_times, label="Gold Standard")
     plt.plot(input_sizes, regular_quicksort_times, label="Regular Quicksort")
+    plt.plot(input_sizes, smart_quicksort_times, label="Smart Quicksort")
     if include_multithreaded_and_multiprocessed:
         plt.plot(
             input_sizes, multithreaded_quicksort_times, label="Multithreaded Quicksort"
@@ -62,8 +67,10 @@ def test_single_perf(input_size):
     for sort_func in [
         sorted,
         quick_sort,
+        smart_quick_sort,
         quick_sort_th,
         quick_sort_mp,
         quicksort_cpp,
+        smart_quicksort_cpp,
     ]:
         print(f"{sort_func.__name__}: {round(test_sort(sort_func, input_size),3)}s")
