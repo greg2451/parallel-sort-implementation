@@ -1,6 +1,6 @@
 #include <iostream>
 #include <omp.h>
-#include "partition.cpp"
+#include "partition.hpp"
 
 using namespace std;
 

@@ -1,6 +1,6 @@
 // C++ Implementation of the Quick Sort Algorithm.
 #include <iostream>
-#include "partition.cpp"
+#include "partition.hpp"
 
 
 void quickSort(double arr[], int start, int end)
