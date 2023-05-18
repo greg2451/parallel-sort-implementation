@@ -56,8 +56,6 @@ class MPQuickSort(mp.Process):
 
             process_1.join()
             process_2.join()
-            res = left_queue + [pivot] + right_queue
-            # print(res)
             return left_queue + [pivot] + right_queue
         else:
             left_side = self.quicksort(to_be_left)
@@ -67,9 +65,7 @@ class MPQuickSort(mp.Process):
 
 if __name__ == "__main__":
     example = [random.randint(0, 10000000) for i in range(100000)]
-    # print(example)
     start = time.time()
     sorted_example = quick_sort_mp(example)
     end = time.time()
     print(end - start)
-    # print(sorted_example == sorted(sorted_example))

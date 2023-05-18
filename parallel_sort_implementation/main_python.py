@@ -1,4 +1,7 @@
-from python_implementation.test_performance import plot_perf, test_single_perf
+from parallel_sort_implementation.python.test_performance import (
+    plot_perf,
+    test_single_perf,
+)
 
 
 if __name__ == "__main__":
