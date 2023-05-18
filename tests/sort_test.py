@@ -2,7 +2,12 @@ import unittest
 import random
 from typing import List
 
-from parallel_sort_implementation.python import quick_sort, quick_sort_mp, quick_sort_th
+from parallel_sort_implementation.python import (
+    quick_sort,
+    quick_sort_mp,
+    quick_sort_th,
+    smart_quick_sort,
+)
 from parallel_sort_implementation.cython import quicksort_cpp
 
 
@@ -15,6 +20,12 @@ class TestSort(unittest.TestCase):
     def test_standard_quicksort(self):
         example = get_random_array(1000)
         self.assertEqual(quick_sort(example, 0, len(example) - 1), sorted(example))
+
+    def test_smart_quick_sort(self):
+        example = get_random_array(1000)
+        self.assertEqual(
+            smart_quick_sort(example, 0, len(example) - 1), sorted(example)
+        )
 
     def test_multiprocessed_quicksort(self):
         example = get_random_array(1000)
