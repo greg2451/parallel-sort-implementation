@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 from tqdm import tqdm
 
 from python_implementation.plain_quick_sort import quick_sort
-from quick_sort_multiprocessed import quick_sort_mp
+from python_implementation.quick_sort_multiprocessed import quick_sort_mp
 from python_implementation.quick_sort_threaded import quick_sort_th
 from python_implementation.utils import test_sort
 

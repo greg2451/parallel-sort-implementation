@@ -1,7 +1,7 @@
 import random
 import time
 
-from quick_sort_multiprocessed import quick_sort_mp
+from python_implementation.quick_sort_multiprocessed import quick_sort_mp
 
 
 def swap_by_index(array, index_a, index_b):
