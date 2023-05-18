@@ -19,3 +19,21 @@ Then, you can run the benchmark with the following command:
 ```bash
 python python_implementation/main_python.py
 ```
+
+## Development setup
+
+This section should only be necessary if you want to contribute to the project.
+
+Start by installing the [dev-requirements](dev-requirements.txt):
+
+```sh
+pip install -r dev-requirements.txt
+```
+
+### Enabling the pre-commit hooks
+
+Run the following command at the root of the repository:
+
+```sh
+pre-commit install
+```

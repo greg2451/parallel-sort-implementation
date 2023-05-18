@@ -1,9 +1,9 @@
 import random
 import time
 
-from parallel_sort_implementation import quicksort_cpp
+from parallel_sort_implementation.cython import quicksort_cpp
 
-from python_implementation.quick_sort_multiprocessed import quick_sort_mp
+from parallel_sort_implementation.python import quick_sort_mp
 
 
 def swap_by_index(array, index_a, index_b):
@@ -20,9 +20,6 @@ def partition(to_sort, left_index, right_index):
         if to_sort[index] <= pivot:
             to_sort = swap_by_index(to_sort, index, greater_element_index)
             greater_element_index += 1
-
-    # if right_index == greater_element_index:
-    #     print(f"Pivot {pivot} was already in the right spot")
 
     # Pivot in its definite spot
     to_sort = swap_by_index(to_sort, right_index, greater_element_index)
