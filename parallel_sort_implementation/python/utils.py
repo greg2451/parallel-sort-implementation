@@ -2,8 +2,7 @@ import random
 import time
 
 from parallel_sort_implementation.cython import quicksort_cpp, smart_quicksort_cpp
-
-from parallel_sort_implementation.python import quick_sort_mp
+from parallel_sort_implementation.python.quick_sort_multiprocessed import quick_sort_mp
 
 
 def swap_by_index(array, index_a, index_b):
