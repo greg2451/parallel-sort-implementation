@@ -1,24 +1,98 @@
 # Benchmark of quicksort in python
 
-## Use the C++ implementation
+This repository contains a benchmark of quicksort in python. It compares the performance of the following implementations:
 
-To do that, you should first build the parallel_sort_implementation package. To do that, you should run the following commands:
+- The python implementation of quicksort
+- A variant with smart partitioning
+- The multithreaded python implementation of quicksort
+- The multiprocessing python implementation of quicksort
+- The C++ implementation of quicksort (using cython)
+- (WIP) The parallel C++ implementation of quicksort (using cython and OpenMP)
 
-```bash
-python setup.py build_ext --inplace
+
+## Setup
+
+### Getting the code
+
+Clone the repository:
+
+```sh
+git clone https://github.com/greg2451/parallel-sort-implementation.git
 ```
 
-If the build was successful, the best way to check if it works is by running the tests:
+### Configuration
 
-```bash
-./run_tests.sh
+1. Install conda locally following this [link](https://docs.conda.io/projects/conda/en/latest/user-guide/install/download.html).
+   We recommend [miniconda](https://docs.conda.io/en/latest/miniconda.html), it is more lightweight and will be sufficient for our usage.
+2. Create a new conda environment by executing the following command in your terminal:
+
+   ```sh
+   conda create -n cloud_computing python=3.11
+   conda activate cloud_computing
+   conda install pip
+   ```
+
+3. Having the conda environnement activated, install the [requirements](requirements.txt):
+
+   ```sh
+   pip install -r requirements.txt
+   ```
+4. To use the C++ implementation, you have to build the parallel_sort_implementation package. To do that, you should run the following commands:
+
+   ```bash
+   python setup.py build_ext --inplace
+   ```
+   > Note: This will only work if you have a C++ compiler installed on your machine. If you don't, you can install it by running the following command (on linux):
+    > ```bash
+    > sudo apt-get install build-essential
+    > ```
+    > on mac:
+    > ```bash
+    > xcode-select --install
+    > ```
+
+5. (WIP/OPTIONAL) If you have OpenMP installed, and you want to use the parallel C++ implementation, you have to modify the [setup.py](setup.py) file and add these arguments to the Extension:
+   ```python
+   # extra_compile_args=['-fopenmp'],
+   ```
+   For more info, see the [official tutorial](https://cython.readthedocs.io/en/latest/src/tutorial/parallelization.html)
+
+   Moreover, you should uncomment the line 38 to 52 in the [parallel_sort_implementation/sort.pyx](parallel_sort_implementation/cython/quicksort.pyx) file.
+   Then, simply build again, and you should be able to use the parallel C++ implementation.
+   Since this is not working yet, you should comment it again before running the benchmark.
+
+   > Note: This will only work if you have OpenMP installed on your machine. If you don't, you can install it by running the following command (on linux):
+    > ```bash
+    > sudo apt-get install libomp-dev
+    > ```
+    > on mac:
+    > ```bash
+    > brew install libomp
+    > ```
+
+## Usage
+
+### Run the benchmark
+
+After installing the requirements, you can run the benchmark by executing the following command:
+
+```sh
+cd parallel_sort_implementation
+python benchmark.py
 ```
 
-Then, you can run the benchmark with the following command:
+If it's too long, you might want to reduce the size of the lists, or only run a subset of the implementations.
+To do that, go into the [file](parallel_sort_implementation/benchmark.py) and change the following lines:
 
-```bash
-python python_implementation/main_python.py
+```python
+include_multithreaded_and_multiprocessed=False
+...
+input_size=100
 ```
+
+#### Expected output
+
+You will see some outputs in the terminal, and then a plot will be saved in the [results](parallel_sort_implementation/results) folder. The plot will also open in a new window.
 
 ## Development setup
 
@@ -28,6 +102,15 @@ Start by installing the [dev-requirements](dev-requirements.txt):
 
 ```sh
 pip install -r dev-requirements.txt
+```
+
+### Running the tests
+
+We use python unittest for the tests.
+To run the tests, execute the following command:
+
+```bash
+./run_tests.sh
 ```
 
 ### Enabling the pre-commit hooks
