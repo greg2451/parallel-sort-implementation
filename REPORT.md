@@ -15,7 +15,7 @@ However, if the pivot is always the smallest or the largest element of the list,
 ### Parallelization
 
 The parallelization of the algorithm is done by using threads or processes to sort the two sublists in parallel. The idea is that if the two sublists are sorted in parallel, then the total time to sort the list will be the time to sort the largest sublist, plus the time to sort the smallest sublist. This is because the time to sort the largest sublist will be the bottleneck of the algorithm, and the time to sort the smallest sublist will be negligible.
-However, contrarily to merge sort, quicksort does not assure you that the two sublists will have the same size. Therefore, one thread or process might have a much larger workload than the other. It is all the more important to choose a good pivot, so that the two sublists have the same size.
+However, contrarily to merge sort, quicksort does not guarantee that the two sublists will have the same size. Therefore, one thread or process might have a much larger workload than the other. It is all the more important to choose a good pivot, so that the two sublists have the same size.
 
 ### Smart partitioning
 
@@ -61,4 +61,4 @@ The x-axis represents the size of the input list, and the y-axis represents the 
 As expected, for a task like sorting a list, multi-threading is not useful in python since the GIL prevents the threads from running in parallel.
 Using multiprocessing is more efficient, but it still does not achieve significant speedup.
 Moreover, using the smart partitioning algorithm significantly reduces the time it takes to sort the list.
-Finally, the solution that gives the best results is our C++ implementation, which is runned in python thanks to Cython. It is faster than the built-in `sorted` function, and it is faster than the naive implementation by a factor of 100 for large lists.
+Finally, the solution that gives the best results is our C++ implementation, which is ran in python thanks to Cython. It is faster than the built-in `sorted` function, and it is faster than the naive implementation by a factor of 100 for large lists.
