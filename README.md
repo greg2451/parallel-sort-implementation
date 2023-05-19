@@ -88,7 +88,6 @@ To do that, go into the [file](parallel_sort_implementation/benchmark.py) and ch
 ```python
 include_multithreaded=False
 include_multiprocessed=False
-
 ...
 input_size=100
 ```

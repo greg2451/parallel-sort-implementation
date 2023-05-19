@@ -53,7 +53,7 @@ The x-axis represents the size of the input list, and the y-axis represents the 
 
 - The C++ implementations are much faster than the Python implementations, and compares well to the built-in `sorted` function (it's even faster for large lists).
 - The multithreaded implementation is not faster than the sequential implementation. This is probably due to the fact that in python, the GIL prevents the threads from running in parallel, so you do not win time, and you add overhead by using threads.
-- The multiprocessed algorithm is faster than the sequential algorithm, but not by much. This is probably due to the fact that we spawn too many processes, and the overhead of creating the processes is too large compared to the time it takes to sort the list.
+- The multiprocessed algorithm is faster than the sequential algorithm, but not by much. It may be linked to the number of processes that are spawned. Indeed, we limit the number of processes spawned, so that we do not have too many processes, which would slow down the algorithm due to high overhead. On the other hand, this means that if a bad pivot is selected, many processes can be idle, this is why the speedup is much more volatile than the regular quicksort.
 - The smart partitioning algorithm is faster than the naive partitioning algorithm. The difference is more significant for large lists, since the naive algorithm has more chance to pick a bad pivot, and hence to create unbalanced partitions.
 
 ## Conclusion
