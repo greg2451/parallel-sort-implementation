@@ -86,7 +86,9 @@ If it's too long, you might want to reduce the size of the lists, or only run a 
 To do that, go into the [file](parallel_sort_implementation/benchmark.py) and change the following lines:
 
 ```python
-include_multithreaded_and_multiprocessed=False
+include_multithreaded=False
+include_multiprocessed=False
+
 ...
 input_size=100
 ```

@@ -16,7 +16,9 @@ SAVE_DIR = Path(__file__).parent.parent / "results"
 SAVE_DIR.mkdir(exist_ok=True)
 
 
-def plot_perf(input_sizes: list, include_multithreaded_and_multiprocessed: bool):
+def plot_perf(
+    input_sizes: list, include_multithreaded: bool, include_multiprocessed: bool
+):
     gold_standard_times = []
     regular_quicksort_times = []
     smart_quicksort_times = []
@@ -29,26 +31,29 @@ def plot_perf(input_sizes: list, include_multithreaded_and_multiprocessed: bool)
         gold_standard_time = test_sort(sorted, input_size)
         regular_quicksort_time = test_sort(quick_sort, input_size)
         smart_quicksort_time = test_sort(smart_quick_sort, input_size)
-        if include_multithreaded_and_multiprocessed:
+        if include_multithreaded:
             multithreaded_quicksort_time = test_sort(quick_sort_th, input_size)
+        if include_multiprocessed:
             multiprocess_quicksort_time = test_sort(quick_sort_mp, input_size)
         cpp_quicksort_time = test_sort(quicksort_cpp, input_size)
 
         gold_standard_times.append(gold_standard_time)
         regular_quicksort_times.append(regular_quicksort_time)
         smart_quicksort_times.append(smart_quicksort_time)
-        if include_multithreaded_and_multiprocessed:
+        if include_multithreaded:
             multithreaded_quicksort_times.append(multithreaded_quicksort_time)
+        if include_multiprocessed:
             multiprocess_quicksort_times.append(multiprocess_quicksort_time)
         cpp_quicksort_times.append(cpp_quicksort_time)
 
     plt.plot(input_sizes, gold_standard_times, label="Gold Standard")
     plt.plot(input_sizes, regular_quicksort_times, label="Regular Quicksort")
     plt.plot(input_sizes, smart_quicksort_times, label="Smart Quicksort")
-    if include_multithreaded_and_multiprocessed:
+    if include_multithreaded:
         plt.plot(
             input_sizes, multithreaded_quicksort_times, label="Multithreaded Quicksort"
         )
+    if include_multiprocessed:
         plt.plot(
             input_sizes, multiprocess_quicksort_times, label="Multiprocess Quicksort"
         )

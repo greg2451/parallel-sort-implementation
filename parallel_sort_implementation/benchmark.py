@@ -9,4 +9,8 @@ if __name__ == "__main__":
 
     input_sizes = [i**2 for i in range(1, 2000, 100)]
     print(input_sizes)
-    plot_perf(input_sizes=input_sizes, include_multithreaded_and_multiprocessed=True)
+    plot_perf(
+        input_sizes=input_sizes,
+        include_multithreaded=False,
+        include_multiprocessed=True,
+    )
