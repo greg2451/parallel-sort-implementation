@@ -7,6 +7,7 @@ This repository contains a benchmark of quicksort in python. It compares the per
 - The multithreaded python implementation of quicksort
 - The multiprocessing python implementation of quicksort
 - The C++ implementation of quicksort (using cython)
+- A variant with smart partitioning
 - (WIP) The parallel C++ implementation of quicksort (using cython and OpenMP)
 
 
@@ -95,6 +96,13 @@ input_size=100
 #### Expected output
 
 You will see some outputs in the terminal, and then a plot will be saved in the [results](parallel_sort_implementation/results) folder. The plot will also open in a new window.
+
+#### Known issues
+
+- The Smart C++ implementation works (and is quite fast) but sometimes it crashes with a segmentation fault. We are still investigating this issue. In the meantime, you can comment each usage of the function `smart_quicksort_cpp`
+- The parallel C++ implementation is not working yet on macOS.
+- Depending on your setup, the multithreaded and multiprocessing implementations might be very slow.
+- If you don't close the plot window, the script will not terminate, and your terminal will be blocked.
 
 ## Development setup
 
